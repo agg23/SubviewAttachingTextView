@@ -89,7 +89,11 @@ open class SubviewAttachingTextViewBehavior: NSObject, NSLayoutManagerDelegate, 
         }
 
         let layoutManager = textView.layoutManager
+        #if os(visionOS)
+        let scaleFactor = 2.0
+        #else
         let scaleFactor = textView.window?.screen.scale ?? UIScreen.main.scale
+        #endif
 
         // For each attached subview, find its associated attachment and position it according to its text layout
         let attachmentRanges = textView.textStorage.subviewAttachmentRanges
